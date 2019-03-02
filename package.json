@@ -1,0 +1,141 @@
+{
+  "name": "storybook-ts",
+  "version": "0.0.1",
+  "description": "Storybook 4 with typescript, react, sass",
+  "main": "./dist/components/index.js",
+  "license": "SEE LICENSE IN <LICENSE>",
+  "types": "./dist/*.d.ts",
+  "scripts": {
+    "story": "start-storybook -p 9009 -c config/.storybook --ci",
+    "story-doc": "DOCGEN=true npm run story",
+    "prestory-build": "rimraf build",
+    "story-build": "DOCGEN=true build-storybook -c config/.storybook -o build",
+    "story-bsync": "BROWSERSYNC=true npm run story",
+    "story-bsync-doc": "BROWSERSYNC=true npm run story-doc",
+    "prebuild": "rimraf dist",
+    "build": "npm run lint && tsc -p tsconfigbuild.json && node config/copy-static.js",
+    "lint": "tslint --force -p ./ && eslint . --ext .jsx,.js",
+    "test": "jest",
+    "app": "node config/app/index.js"
+  },
+  "author": "qrik116",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qrik116/storybook-ts.git"
+  },
+  "homepage": "https://github.com/qrik116/storybook-ts/blob/master/README.md",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "classnames": "^2.2.6",
+    "popper.js": "^1.14.7",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-helmet": "^5.2.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "tinycolor2": "^1.4.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "@storybook/addon-a11y": "^4.1.13",
+    "@storybook/addon-actions": "^4.1.13",
+    "@storybook/addon-info": "^4.1.13",
+    "@storybook/addon-knobs": "^4.1.13",
+    "@storybook/addon-links": "^4.1.13",
+    "@storybook/addon-options": "^4.1.13",
+    "@storybook/addons": "^4.1.13",
+    "@storybook/react": "^4.1.13",
+    "@types/classnames": "^2.2.7",
+    "@types/enzyme": "^3.1.18",
+    "@types/enzyme-adapter-react-16": "^1.0.4",
+    "@types/jest": "^24.0.9",
+    "@types/js-cookie": "^2.2.1",
+    "@types/memory-fs": "^0.3.2",
+    "@types/node": "^11.10.4",
+    "@types/react": "^16.8.4",
+    "@types/react-dom": "^16.8.2",
+    "@types/react-helmet": "^5.0.8",
+    "@types/react-router": "^4.4.4",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/storybook__addon-actions": "^3.4.2",
+    "@types/storybook__addon-info": "^4.1.0",
+    "@types/storybook__addon-knobs": "^4.0.1",
+    "@types/storybook__react": "^4.0.1",
+    "@types/tinycolor2": "^1.4.1",
+    "@types/webpack": "^4.4.24",
+    "autoprefixer": "^9.4.8",
+    "babel-eslint": "^10.0.1",
+    "browser-sync": "^2.26.3",
+    "browser-sync-webpack-plugin": "^2.2.2",
+    "css-loader": "^2.1.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.9.1",
+    "enzyme-to-json": "^3.3.5",
+    "eslint": "^5.14.1",
+    "eslint-plugin-react": "^7.12.4",
+    "fork-ts-checker-webpack-plugin": "^0.5.1",
+    "jest": "^24.1.0",
+    "json-loader": "^0.5.7",
+    "node-sass": "^4.11.0",
+    "postcss-loader": "^3.0.0",
+    "react-docgen-typescript-loader": "^2.2.0",
+    "resolve-url-loader": "^3.0.1",
+    "rimraf": "^2.6.3",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "ts-jest": "^24.0.0",
+    "ts-loader": "^5.3.3",
+    "tslint": "^5.12.1",
+    "tslint-config-airbnb": "^5.11.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.3.3",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.29.5"
+  },
+  "jest": {
+    "modulePaths": [
+      "<rootDir>/src"
+    ],
+    "collectCoverageFrom": [
+      "<rootDir>/src/__tests__/**/*?(spec|test).(js|ts)?(x)"
+    ],
+    "coverageDirectory": "./coverage",
+    "coverageReporters": [
+      "text",
+      "html"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/jest/setup.js"
+    ],
+    "testMatch": [
+      "<rootDir>/src/__tests__/**/*?(spec|test).(js|ts)?(x)"
+    ],
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest",
+      "^.+\\.s?css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "unmockedModulePathPatterns": [
+      "./node_modules/react"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  }
+}

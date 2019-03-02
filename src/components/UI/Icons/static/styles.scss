@@ -1,0 +1,54 @@
+.svg-icon {
+    display: inline-block;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    width: 1em;
+    height: 1em;
+
+    font-size: inherit;
+
+    user-select: none;
+    vertical-align: middle;
+
+    fill: currentColor;
+
+    &_top {
+        vertical-align: top;
+    }
+    &_middle {
+        vertical-align: middle;
+    }
+    &_bottom {
+        vertical-align: bottom;
+    }
+
+    &_lxs {
+        font-size: 18px;
+    }
+    &_xs {
+        font-size: 20px;
+    }
+    &_sm {
+        font-size: 30px;
+    }
+    &_md {
+        font-size: 40px;
+    }
+    &_lg {
+        font-size: 50px;
+    }
+    &_exlg {
+        font-size: 60px;
+    }
+
+    &_load {
+        animation: spin 1s linear infinite;
+    }
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}

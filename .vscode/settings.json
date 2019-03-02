@@ -1,0 +1,4 @@
+{
+    "eslint.enable": false,
+    "jest.rootPath": "src/__tests__"
+}
