@@ -29,6 +29,7 @@
             "spaces",
             4
         ],
+        "prefer-for-of": false,
         "interface-name": false,
         "interface-over-type-literal": true,
         "jsdoc-format": true,

@@ -30,8 +30,10 @@
     "last 2 versions"
   ],
   "dependencies": {
+    "@types/p5": "^0.7.2",
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
+    "p5": "^0.7.3",
     "popper.js": "^1.14.7",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
