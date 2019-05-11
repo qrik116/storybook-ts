@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withInfo } from '@storybook/addon-info';
 
 import { Container, Row, Col } from './';
 
@@ -30,12 +29,12 @@ interface IRow {
 `;
 
 storiesOf('core / Grid', module)
+    .addParameters({
+        info: { text: textInfo }
+    })
     .add(
         'Auto-layout columns',
-        withInfo({
-            text: textInfo,
-            inline: true
-        })(() => {
+        () => {
             return (
                 <div className='example-grid'>
                     <Container>
@@ -51,14 +50,11 @@ storiesOf('core / Grid', module)
                     </Container>
                 </div>
             );
-        })
+        }
     )
     .add(
         'Setting one column width',
-        withInfo({
-            text: textInfo,
-            inline: true
-        })(() => {
+        () => {
             return (
                 <div className='example-grid'>
                     <Container>
@@ -75,14 +71,11 @@ storiesOf('core / Grid', module)
                     </Container>
                 </div>
             );
-        })
+        }
     )
     .add(
         'Variable width content',
-        withInfo({
-            text: textInfo,
-            inline: true
-        })(() => {
+        () => {
             return (
                 <div className='example-grid'>
                     <Container>
@@ -99,14 +92,11 @@ storiesOf('core / Grid', module)
                     </Container>
                 </div>
             );
-        })
+        }
     )
     .add(
         'Responsive grids',
-        withInfo({
-            text: textInfo,
-            inline: true
-        })(() => {
+        () => {
             return (
                 <div className='example-grid'>
                     <Container>
@@ -122,14 +112,11 @@ storiesOf('core / Grid', module)
                     </Container>
                 </div>
             );
-        })
+        }
     )
     .add(
         'Responsive grids 2',
-        withInfo({
-            text: textInfo,
-            inline: true
-        })(() => {
+        () => {
             return (
                 <div className='example-grid'>
                     <Container>
@@ -164,14 +151,11 @@ storiesOf('core / Grid', module)
                     </Container>
                 </div>
             );
-        })
+        }
     )
     .add(
         'Order, Offset',
-        withInfo({
-            text: textInfo,
-            inline: true
-        })(() => {
+        () => {
             return (
                 <div className='example-grid'>
                     <Container>
@@ -195,14 +179,11 @@ storiesOf('core / Grid', module)
                     </Container>
                 </div>
             );
-        })
+        }
     )
     .add(
         'Col - self position',
-        withInfo({
-            text: textInfo,
-            inline: true
-        })(() => {
+        () => {
             return (
                 <div className='example-grid'>
                     <Container>
@@ -220,5 +201,5 @@ storiesOf('core / Grid', module)
                     </Container>
                 </div>
             );
-        })
+        }
     );
