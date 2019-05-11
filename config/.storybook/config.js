@@ -2,12 +2,16 @@ import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import { configureActions } from '@storybook/addon-actions';
 import { withKnobs } from '@storybook/addon-knobs';
+import { withInfo } from '@storybook/addon-info';
 import { withOptions } from '@storybook/addon-options';
 
 import Container from './Container';
 
-addDecorator(story => <Container story={story} />);
+addDecorator(withInfo({
+    inline: true
+}));
 addDecorator(withKnobs);
+addDecorator(story => <Container story={story} />);
 configureActions({
     // Limit the number of items logged into the actions panel
     limit: 20

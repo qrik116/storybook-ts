@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withInfo } from '@storybook/addon-info';
 import { select, boolean } from '@storybook/addon-knobs';
 
 import Icons from './';
@@ -28,12 +27,12 @@ const style = {
 };
 
 storiesOf('UI / Icons', module)
+    .addParameters({
+        info: { text: textInfo }
+    })
     .add(
         'Default',
-        withInfo({
-            text: textInfo,
-            inline: true
-        })(() => {
+        () => {
             const generalProps = {
                 top: boolean('top', false),
                 middle: boolean('middle', false),
@@ -64,7 +63,7 @@ storiesOf('UI / Icons', module)
                     })}
                 </Container>
             );
-        })
+        }
     );
 
 function handlerClick(e: React.MouseEvent<HTMLButtonElement>) {
