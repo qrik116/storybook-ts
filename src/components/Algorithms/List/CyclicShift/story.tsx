@@ -7,12 +7,12 @@ const textInfo = `
 Циклический сдвиг массива.
 `;
 
-storiesOf('Algorithms / List', module)
+storiesOf('Algorithms / List / cyclicShift', module)
     .addParameters({
         info: { text: textInfo }
     })
     .add(
-        'cyclicShift',
+        'default',
         () => {
             return (
                 <div className='stories__content'>
