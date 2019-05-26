@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 
 import { Container, Row, Col } from 'components/__core__/Grid';
-import eratosfen from './';
+
+import Worker from 'worker-loader!./index.worker';
+
+const worker = new Worker();
 
 const Example = () => {
     const [value, setValue] = useState(0);
+    const [result, setResult] = useState('');
+
+    worker.onmessage = ({ data }) => {
+        setResult(data.join(', '));
+    };
+
+    worker.postMessage(value);
 
     return (
         <Container className='text-center' fluid>
@@ -16,7 +26,7 @@ const Example = () => {
             {Boolean(value) &&
                 <Row>
                     <Col>
-                        <p>{eratosfen(value).join(', ')}</p>
+                        <p>{result}</p>
                     </Col>
                 </Row>
             }

@@ -98,7 +98,8 @@
     "tslint-react": "^3.6.0",
     "typescript": "^3.3.3",
     "url-loader": "^1.1.2",
-    "webpack": "^4.29.5"
+    "webpack": "^4.29.5",
+    "worker-loader": "^2.0.0"
   },
   "jest": {
     "modulePaths": [
