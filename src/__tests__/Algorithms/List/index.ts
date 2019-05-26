@@ -65,5 +65,10 @@ describe('Алгоритмы со списком', () => {
         it('Choise', () => checkSort(Sort.choise));
 
         it('Bubble', () => checkSort(Sort.bubble));
+
+        it('Count', () => {
+            expect(Sort.count([1, 8, 2, 4, 4, 9, 5, 2])).toEqual([1, 2, 2, 4, 4, 5, 8, 9]);
+            expect(Sort.count([1, 8, 2, 4, 4, 9, 5])).toEqual([1, 2, 4, 4, 5, 8, 9]);
+        });
     });
 });
