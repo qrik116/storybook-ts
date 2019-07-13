@@ -1,3 +1,5 @@
+@import '~highlight.js/styles/github.css';
+
 html {
     box-sizing: border-box;
 
@@ -57,12 +59,14 @@ html {
         flex: 1 1 40%;
     }
 
-    table {
+    table:not(.table) {
         width: 100%;
         margin-top: 5px;
 
         border-spacing: 0;
         border-collapse: collapse;
+
+        font-size: 14px;
 
         td {
             padding: 2px 5px;
@@ -70,13 +74,13 @@ html {
             white-space: normal;
 
             border: 1px solid #ccc;
+        }
 
-            &:nth-child(2) {
-                max-width: 450px;
-            }
-
-            &:last-child {
-                max-width: 250px;
+        tbody {
+            tr {
+                &:nth-child(2n+1) {
+                    background-color: #f9f9f9;
+                }
             }
         }
     }
@@ -93,5 +97,24 @@ html {
     .row {
         margin-top: 1rem;
         margin-bottom: 1rem;
+    }
+}
+
+code[class*='language'] {
+    display: block;
+    overflow: auto;
+
+    padding: 10px 20px;
+
+    background-color: #fafafa;
+}
+
+#story-root + div {
+    a {
+        color: #0053ef;
+
+        &:hover {
+            text-decoration: none;
+        }
     }
 }

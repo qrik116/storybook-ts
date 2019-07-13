@@ -1,20 +1,22 @@
 import React from 'react';
+import marked from 'marked';
 import { storiesOf } from '@storybook/react';
 import { select, boolean } from '@storybook/addon-knobs';
 
 import Icons from './';
 import { Container } from '../../__core__/Grid';
 
-const textInfo = `
+const textInfo = marked(`
 Иконки
 
 # Usage
 ~~~js
 import { Icons } from 'react-trendagent-ui';
-
+~~~
+~~~js
 <Icons.EditIcon {...someProps} />
 ~~~
-`;
+`);
 
 const style = {
     button: {

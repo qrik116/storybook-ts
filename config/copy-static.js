@@ -24,6 +24,30 @@ function walkDirSync(dir, name, dirList) {
     return dirList;
 }
 
+function findFileSync(startPath, filter, fileList) {
+    if (!existsSync(startPath)) {
+        console.log('no dir ', startPath);
+        return;
+    }
+
+    fileList = fileList || [];
+
+    const files = readdirSync(startPath);
+
+    for (let i = 0; i < files.length; i++) {
+        const filename = path.join(startPath, files[i]);
+        const stat = lstatSync(filename);
+
+        if (stat.isDirectory()) {
+            fileList = findFileSync(filename, filter, fileList); // recurse
+        } else if (filter.test(filename)) {
+            fileList.push(filename);
+        }
+    }
+
+    return fileList;
+}
+
 function walkFileSync(dir, fileList) {
     const files = readdirSync(dir);
 
@@ -41,7 +65,7 @@ function walkFileSync(dir, fileList) {
     return fileList;
 }
 
-function copyStatic(files) {
+function copyStatic(files, acceptFile) {
     files.forEach(file => {
         const copyFiles = walkFileSync(file);
 
@@ -58,6 +82,18 @@ function copyStatic(files) {
             }
         });
     });
+
+    if (acceptFile) {
+        acceptFile.forEach(item => {
+            const relativePath = path.relative(path.resolve(), path.resolve(item));
+            const distPath = relativePath.replace(/.+?\//, 'dist/');
+
+            copyFileSync(path.resolve(relativePath), path.resolve(distPath));
+        });
+    }
 }
 
-copyStatic(walkDirSync(path.resolve('src'), ['static', 'variables']));
+copyStatic(
+    walkDirSync(path.resolve('src'), ['static', 'variables', '__theme__']),
+    findFileSync(path.resolve('src'), /\.d\.ts$/)
+);

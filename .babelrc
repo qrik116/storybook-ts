@@ -1,0 +1,45 @@
+{
+    "env": {
+        "ui-build": {
+            "presets": [
+                "@babel/preset-env",
+                [
+                    "@babel/preset-typescript",
+                    {
+                        "isTSX": true,
+                        "allExtensions": true
+                    }
+                ],
+                "@babel/preset-react"
+            ],
+            "plugins": [
+                ["babel-plugin-typescript-to-proptypes"],
+                ["@babel/plugin-proposal-class-properties", { "loose": true }],
+                ["@babel/plugin-proposal-object-rest-spread", { "loose": true }],
+                "@babel/plugin-transform-runtime",
+                ["babel-plugin-module-resolver", {
+                    "root": ["./src"],
+                    "alias": {
+                        "@api": "./src/api",
+                        "@components": "./src/components/UI",
+                        "@constants": "./src/constants",
+                        "@core": "./src/components/__core__",
+                        "@libs": "./src/libs",
+                        "@redux": "./src/redux",
+                    }
+                }]
+            ],
+            "comments": false,
+            "ignore": [
+                "src/__tests__",
+                "**/story.tsx",
+                "**/story.jsx",
+                "**/example.tsx",
+                "**/example.jsx",
+                "**/*.d.ts",
+                "src/components/__libs__",
+                "src/libs/story"
+            ]
+        }
+    }
+}

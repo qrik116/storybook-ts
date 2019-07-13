@@ -21,3 +21,11 @@ Object.assign = require('object-assign');
 global.requestAnimationFrame = function (callback) {
     callback();
 };
+
+window.matchMedia = window.matchMedia || function() {
+    return {
+        matches : false,
+        addListener : function() {},
+        removeListener: function() {}
+    };
+};
