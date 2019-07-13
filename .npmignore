@@ -39,3 +39,8 @@ tslint.json
 tsconfigbuild.json
 webpack.config.js
 **/story.jsx
+Dockerfile
+*.yml
+.dockerignore
+
+TODO.md

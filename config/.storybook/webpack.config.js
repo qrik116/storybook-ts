@@ -4,7 +4,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
-module.exports = (baseConfig, env, config /* Storybook 4 default config */) => {
+module.exports = async ({ config }) => {
 	const tsLoader = {
 		test: /\.(t|j)sx?$/,
 		include: path.resolve('src'),
@@ -24,6 +24,15 @@ module.exports = (baseConfig, env, config /* Storybook 4 default config */) => {
 		tsLoader.use.push({ loader: 'react-docgen-typescript-loader' })
 	}
 	config.resolve.modules.push(path.resolve('src'));
+	config.resolve.alias = {
+		...config.resolve.alias,
+		'@api': path.resolve('./src/api'),
+		'@components': path.resolve('./src/components/UI'),
+		'@constants': path.resolve('./src/constants'),
+		'@core': path.resolve('./src/components/__core__'),
+		'@libs': path.resolve('./src/libs'),
+		'@redux': path.resolve('./src/redux')
+	}
 	config.module.rules[0].exclude = /node_modules/;
 	config.output = {
 		...config.output,
@@ -46,7 +55,7 @@ module.exports = (baseConfig, env, config /* Storybook 4 default config */) => {
 					loader: 'sass-loader',
 					options: {
 						sourceMap: true,
-						includePaths: [path.resolve('node_modules')],
+						includePaths: ['node_modules'],
 					},
 				},
 			],
@@ -67,7 +76,7 @@ module.exports = (baseConfig, env, config /* Storybook 4 default config */) => {
 			errorDetails: false,
 			chunks: false
 		}
-	},
+	};
 	config.plugins.push(
         new ForkTsCheckerWebpackPlugin({
 			tslint: path.resolve('tslint.json'),
@@ -76,10 +85,10 @@ module.exports = (baseConfig, env, config /* Storybook 4 default config */) => {
         }),
         new webpack.WatchIgnorePlugin([
             /\.d\.ts$/,
-		]),
-	);
+        ])
+    );
 
-	if (process.env.BROWSERSYNC) {
+    if (process.env.BROWSERSYNC) {
 		config.plugins.push(
 			new BrowserSyncPlugin(
 				// BrowserSync options
@@ -103,7 +112,7 @@ module.exports = (baseConfig, env, config /* Storybook 4 default config */) => {
 			)
 		)
 	}
-	
+
 	config.optimization.minimizer = [
 		new TerserPlugin({
 			cache: true,

@@ -1,9 +1,10 @@
 import React from 'react';
+import marked from 'marked';
 import { storiesOf } from '@storybook/react';
 
 import { Container, Row, Col } from './';
 
-const textInfo = `
+const textInfo = marked(`
 ## Grid system.
 
 Система сетки [Bootstrap](https://getbootstrap.com/docs/4.3/layout/grid/) использует ряд контейнеров,
@@ -11,7 +12,7 @@ const textInfo = `
 Построено с помощью [flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)
 и полностью отзывчиво.
 
-~~~js
+~~~ts
 type TColSize = boolean | number | string;
 type TColumn = TColSize | {
     span: TColSize
@@ -26,7 +27,7 @@ interface IRow {
     justify?: 'start' | 'end' | 'center' | 'between' | 'around';
 }
 ~~~
-`;
+`);
 
 storiesOf('core / Grid', module)
     .addParameters({

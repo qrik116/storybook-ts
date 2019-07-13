@@ -1,3 +1,7 @@
 {
-    "eslint.enable": false
+    "eslint.enable": false,
+    "jest.rootPath": "<rootDir>/src/__tests__",
+    // "jest.pathToJest": "npm run test",
+    "jest.debugMode": true,
+    "javascript-test-runner.additionalArgs": ""
 }

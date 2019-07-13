@@ -1,16 +1,16 @@
 {
     "compilerOptions": {
       "target": "es2016",
-      "module": "ESNext",
+      "module": "commonjs",
       "lib": [
         "dom",
+        "dom.iterable",
         "es2017",
         "es2017.object"
       ],
       "allowJs": true,
       "jsx": "react",
       "sourceMap": false,
-      "outDir": "./dist",
       "removeComments": true,
       "strict": true,
       "noImplicitAny": true,
@@ -19,10 +19,22 @@
       "noUnusedParameters": true,
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
+      "noEmit": true,
       "noEmitOnError": true,
       "moduleResolution": "node",
       "baseUrl": "./src",
       "paths": {
+        "@api/*": ["api/*"],
+        "@api": ["api"],
+        "@components/*": ["components/UI/*"],
+        "@components": ["components/UI"],
+        "@constants/*": ["constants/*"],
+        "@constants": ["constants"],
+        "@core/*": ["components/__core__/*"],
+        "@core": ["components/__core__"],
+        "@libs/*": ["libs/*"],
+        "@libs": ["libs"],
+        "@redux/*": ["redux/*"],
         "api/*": ["api/*"],
         "components/*": ["components/*"],
         "constants/*": ["constants/*"],
@@ -42,6 +54,7 @@
       "node_modules",
       "config",
       "src/__tests__",
-      "src/**/story.*"
+      "src/**/story.*",
+      "src/**/example.*"
     ]
   }
