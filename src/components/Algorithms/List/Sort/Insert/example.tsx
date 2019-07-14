@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Container, Row, Col } from 'components/__core__/Grid';
-import bubbleSort from './';
+import insertSort from './';
 
 const Example = () => {
     const [arrValue, setArr] = useState('3, 5, 1, 2, 1, 10, 5');
@@ -19,7 +19,7 @@ const Example = () => {
             {(Boolean(arrValue)) &&
                 <Row>
                     <Col>
-                        <p>Отсортированный массив: {bubbleSort(arrValue.split(', ').map(item => +item)).join(', ')}</p>
+                        <p>Отсортированный массив: {insertSort(arrValue.split(', ').map(item => +item)).join(', ')}</p>
                     </Col>
                 </Row>
             }
