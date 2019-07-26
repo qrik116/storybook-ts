@@ -1,4 +1,11 @@
-class Stack<T> {
+export interface IStack<T> {
+    push: (item: T) => void;
+    pop: () => T | undefined;
+    peek: () => T | undefined;
+    isEmpty: () => boolean;
+}
+
+class Stack<T> implements IStack<T> {
     private maxSize: number = 0;
     private stackArr: T[] = [];
     private top = -1;

@@ -2,6 +2,7 @@ import React, { FC, Fragment } from 'react';
 import marked from 'marked';
 
 import Stack from './';
+import ListStack from '../ListStack';
 
 const Example: FC = () => {
     const theStack = new Stack<number>(10);
@@ -25,7 +26,7 @@ const result = [${theStack.display().toString()}] // Результат
 ~~~
 `);
 
-    const theStack2 = new Stack<string>(30);
+    const theStack2 = new ListStack<string>();
     const word = 'Привет';
     let reverse = '';
 
@@ -95,7 +96,7 @@ if (!theStack3.isEmpty()) {
 `);
 
     const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const theStack3 = new Stack<string>(30);
+        const theStack3 = new ListStack<string>();
         const code = e.target.value;
 
         for (let i = 0; i < code.length; i++) {

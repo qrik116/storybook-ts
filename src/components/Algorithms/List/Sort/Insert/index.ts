@@ -1,3 +1,5 @@
+import List from 'components/Structure/List';
+
 /**
  * Квадратичная сортировка вставками.
  * Сложность - O(N2).
@@ -29,4 +31,24 @@ function insertSort(A: (number | string)[]): (number | string)[] {
     return A;
 }
 
+function listInsertSort(A: (number | string)[]): (number | string)[] {
+    const list = new List<number | string>();
+
+    for (const item of A) list.insert(item);
+
+    let i = 0;
+
+    while (!list.isEmpty()) {
+        const link = list.deleteFirst();
+
+        if (!link) break;
+
+        A[i] = link.data;
+        i++;
+    }
+
+    return A;
+}
+
+export { listInsertSort };
 export default insertSort;

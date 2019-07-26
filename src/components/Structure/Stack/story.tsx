@@ -7,7 +7,7 @@ const textInfo = `
 Стэк.
 `;
 
-storiesOf('Algorithms / Stack', module)
+storiesOf('Structure / Stack', module)
     .addParameters({
         info: { text: textInfo }
     })

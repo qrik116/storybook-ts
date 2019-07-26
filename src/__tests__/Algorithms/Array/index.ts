@@ -1,6 +1,6 @@
 import { Search, reverse, cyclicShift, Sort } from 'components/Algorithms/List';
 
-describe('Алгоритмы со списком', () => {
+describe('Алгоритмы с массивом', () => {
     describe('Main', () => {
         it('Reverse', () => {
             const A = [1, 2, 3, 4];
@@ -61,6 +61,7 @@ describe('Алгоритмы со списком', () => {
         }
 
         it('Insert', () => checkSort(Sort.insert));
+        it('List Insert', () => checkSort(Sort.listInsert));
 
         it('Choise', () => checkSort(Sort.choise));
 
