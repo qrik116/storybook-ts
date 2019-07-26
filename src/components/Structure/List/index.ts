@@ -1,11 +1,15 @@
 import Link from './Link';
+import ListIterator from './Iterator';
 
 /** Связный список */
 class List<T> {
     private first: Link<T> | null = null;
     private last: Link<T> | null = null;
+    private iterator: ListIterator<T>;
 
     constructor(arr: T[] = []) {
+        this.iterator = this.getIterator();
+
         for (const item of arr) this.insertLast(item);
     }
 
@@ -13,163 +17,98 @@ class List<T> {
         return !this.first;
     }
 
-    insertFirst(value: T) {
-        const newLink = new Link(value);
-
-        if (!this.first) {
-            this.last = newLink;
-        } else {
-            this.first.previous = newLink;
-        }
-
-        newLink.next = this.first;
-        this.first = newLink;
+    setFirst(link: Link<T> | null) {
+        if (link) link.previous = null;
+        this.first = link;
     }
-
-    deleteFirst() {
-        if (!this.first) return;
-
-        const temp = this.first;
-
-        if (!this.first.next) {
-            this.last = null;
-        } else {
-            this.first.next.previous = null;
-        }
-
-        this.first = this.first.next;
-        return temp;
-    }
-
-    insertLast(value: T) {
-        const newLink = new Link(value);
-
-        if (!this.last) {
-            this.first = newLink;
-        } else {
-            this.last.next = newLink;
-        }
-
-        newLink.previous = this.last;
-        this.last = newLink;
-    }
-
-    deleteLast() {
-        if (!this.last) return;
-
-        const temp = this.last;
-
-        if (!this.last.previous) {
-            this.first = null;
-        } else {
-            this.last.previous.next = null;
-        }
-
-        this.last = this.last.previous;
-        return temp;
-    }
-
-    insertBefore(current: T | Link<T> | null, val: T) {
-        const currLink = current instanceof Link ? current : current ? this.find(current) : null;
-
-        if (!currLink) {
-            this.insertLast(val);
-        } else {
-            const newLink = new Link(val);
-
-            if (currLink === this.first) {
-                this.first = newLink;
-            }
-
-            newLink.next = currLink;
-            newLink.previous = currLink.previous;
-
-            if (currLink.previous) currLink.previous.next = newLink;
-            currLink.previous = newLink;
-        }
-    }
-
-    insertAfter(current: T | Link<T> | null, val: T) {
-        const currLink = current instanceof Link ? current : current ? this.find(current) : null;
-
-        if (!currLink) {
-            this.insertLast(val);
-        } else {
-            const newLink = new Link(val);
-
-            if (currLink === this.last) {
-                this.last = newLink;
-            } else {
-                newLink.next = currLink.next;
-
-                if (currLink.next) currLink.next.previous = newLink;
-            }
-
-            newLink.previous = currLink;
-            currLink.next = newLink;
-        }
-    }
-
     getFirst() {
         return this.first;
     }
 
+    setLast(link: Link<T> | null) {
+        if (link) link.next = null;
+        this.last = link;
+    }
     getLast() {
         return this.last;
     }
 
+    insertFirst(value: T) {
+        this.iterator.reset();
+        this.iterator.insertBefore(value);
+    }
+
+    deleteFirst() {
+        this.iterator.reset();
+        return this.iterator.deleteCurrent();
+    }
+
+    insertLast(value: T) {
+        this.iterator.reset('last');
+        this.iterator.insertAfter(value);
+    }
+
+    deleteLast() {
+        this.iterator.reset('last');
+        return this.iterator.deleteCurrent();
+    }
+
+    insertBefore(current: T | '__ITERATOR__', val: T) {
+        if (current !== '__ITERATOR__') this.find(current);
+
+        this.iterator.insertBefore(val);
+    }
+
+    insertAfter(current: T | '__ITERATOR__', val: T) {
+        if (current !== '__ITERATOR__') this.find(current);
+
+        this.iterator.insertAfter(val);
+    }
+
     find(val: T) {
-        if (!this.first) return;
+        if (this.isEmpty()) return;
 
-        let current = this.first;
+        this.iterator.reset();
 
-        while (current.data !== val) {
-            if (!current.next) return;
-
-            current = current.next;
+        while ((this.iterator.getCurrent() as Link<T>).data !== val) {
+            if (this.iterator.atEnd()) return;
+            this.iterator.nextLink();
         }
 
-        return current;
+        return this.iterator.getCurrent();
     }
 
     delete(val: T) {
-        const currLink = this.find(val);
+        this.find(val);
 
-        if (!currLink) return;
-
-        if (currLink === this.last) {
-            this.last = currLink.previous;
-        } else {
-            if (currLink.next) currLink.next.previous = currLink.previous;
-        }
-
-        if (currLink === this.first) {
-            this.first = currLink.next;
-        } else {
-            if (currLink.previous) currLink.previous.next = currLink.next;
-        }
-
-        return currLink;
+        return this.iterator.deleteCurrent();
     }
 
     insert(val: T) {
-        let current = this.first;
+        this.iterator.reset();
+
+        let current = this.iterator.getCurrent();
 
         while (current !== null && val > current.data) {
-            current = current.next;
+            current = this.iterator.nextLink();
         }
 
-        this.insertBefore(current, val);
+        this.insertBefore('__ITERATOR__', val);
+    }
+
+    getIterator(): ListIterator<T> {
+        return new ListIterator(this);
     }
 
     getValue(direction: 'forward' | 'backward' = 'forward') {
-        let current = direction === 'forward' ? this.first : this.last;
+        this.iterator.reset(direction === 'forward' ? 'first' : 'last');
+        let current = this.iterator.getCurrent();
         let result = '';
 
-        while (current !== null) {
+        while (current) {
             result += current.getValueToPrint() + ' ';
 
-            current = direction === 'forward' ? current.next : current.previous;
+            current = (direction === 'forward') ? this.iterator.nextLink() : this.iterator.previousLink();
         }
 
         return result.trim();

@@ -165,6 +165,58 @@ function DoublyLinkedApp() {
     console.log(`List (first --> last): ${list.getValue()}`);
 }
 
+/**
+ * Работа с итератором.
+ *
+ * Добаление и удаление кратных 3 элементов
+ */
+function InterIterApp() {
+    const list = new List<number>();
+    const iter = list.getIterator();
+
+    iter.insertAfter(21);
+    iter.insertAfter(40);
+    iter.insertAfter(30);
+    iter.insertAfter(7);
+    iter.insertAfter(45);
+
+    console.log(`Before: ${list.getValue()}`);
+
+    console.log('--------------------------');
+    iter.reset();
+    let link = iter.getCurrent();
+
+    while (link) {
+        if (link && !(link.data % 3)) {
+            const dLink = iter.deleteCurrent();
+
+            if (dLink) {
+                console.log(`Deleted: ${dLink.getValueToPrint()}`);
+            }
+        }
+
+        link = iter.nextLink();
+    }
+    console.log('--------------------------');
+
+    console.log(`After: ${list.getValue()}`);
+}
+
+/**
+ * Забиваем память компа.
+ */
+function ListOutOfMemory() {
+    const list = new List<number>();
+    let i = 0;
+
+    while (true) {
+        list.insertLast(Math.random() * 100000);
+        i++;
+
+        if (!(i % 1000000)) console.log(i / 1000000);
+    }
+}
+
 (function main(args: string[]) {
     for (const arg of args) {
         switch (arg) {
@@ -182,6 +234,12 @@ function DoublyLinkedApp() {
                 break;
             case 'DoublyLinkedApp':
                 DoublyLinkedApp();
+                break;
+            case 'InterIterApp':
+                InterIterApp();
+                break;
+            case 'ListOutOfMemory':
+                ListOutOfMemory();
                 break;
             default: break;
         }
